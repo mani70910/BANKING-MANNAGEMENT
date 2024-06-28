@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Close Account</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	integrity="sha512-SPz+q3DFV7lxhtCmM1kbWYHrAV6DgbxM5vnm3Rw1MGfIyCXPCZCjGTxL8Oy8eNc7BQsVlX9ctY+sy1HJYyKjxw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background: linear-gradient(135deg, #00b4db, #0083b0);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.container {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 400px; /* Adjust form width */
+}
+
+h2 {
+	margin-top: 0;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+input[type="text"], input[type="submit"] {
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	padding-left: 35px; /* Add left padding for icons */
+}
+
+input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+.fa {
+	position: absolute;
+	margin: 12px 0 0 10px; /* Adjust icon position */
+	color: #555;
+}
+
+.error {
+	color: red;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+p {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<p>Note: Make Sure Your Acccount Balance is 0 otherwise it will
+			not delete or else you can withdraw all amount and then can delete.</p>
+		<h2>Close Account</h2>
+		<form id="Close_Account" action="Close_Account" method="post">
+			<label for="full_name"><i class="fa fa-user"></i> Full Name:</label>
+			<input type="text" id="full_name" name="full_name" required>
+			<span class="error" id="fullNameError"></span> <label
+				for="account_number"><i class="fa fa-credit-card"></i>
+				Account Number:</label> <input type="text" id="account_number"
+				name="account_number" required> <span class="error"
+				id="accountNumberError"></span> <label for="mobile_number"><i
+				class="fa fa-phone"></i> Mobile Number:</label> <input type="text"
+				id="mobile_number" name="mobile_number" required> <span
+				class="error" id="mobileNumberError"></span> <input type="submit"
+				value="Close Account">
+		</form>
+	</div>
+</body>
+</html>

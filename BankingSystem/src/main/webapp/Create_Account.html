@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create_Account</title>
+
+<!-- style CSS -->
+<style>
+/* Google Fonts - Poppins */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+.container {
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* background-color: #52d416; */
+	column-gap: 30px;
+	background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8,
+		#9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1
+		);
+}
+
+.form {
+	position: absolute;
+	max-width: 430px;
+	width: 100%;
+	padding: 30px;
+	border-radius: 6px;
+	background: #FFF;
+}
+
+.form.signup {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.forms.show-signup .form.signup {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.forms.show-signup .form.login {
+	opacity: 0;
+	pointer-events: none;
+}
+
+header {
+	font-size: 28px;
+	font-weight: 600;
+	color: #232836;
+	text-align: center;
+}
+
+form {
+	margin-top: 30px;
+}
+
+.form .field {
+	position: relative;
+	height: 50px;
+	width: 100%;
+	margin-top: 20px;
+	border-radius: 6px;
+}
+
+.field input, .field button {
+	height: 100%;
+	width: 100%;
+	border: none;
+	font-size: 16px;
+	font-weight: 400;
+	border-radius: 6px;
+}
+
+.field input {
+	outline: none;
+	padding: 0 15px;
+	border: 1px solid #CACACA;
+}
+
+.field input:focus {
+	border-bottom-width: 2px;
+}
+
+.eye-icon {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	font-size: 18px;
+	color: #8b8b8b;
+	cursor: pointer;
+	padding: 5px;
+}
+
+.field button {
+	color: #fff;
+	background-color: #0171d3;
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.field button:hover {
+	background-color: #016dcb;
+}
+
+.form-link {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.form-link span, .form-link a {
+	font-size: 14px;
+	font-weight: 400;
+	color: #232836;
+}
+
+.form a {
+	color: #0171d3;
+	text-decoration: none;
+}
+
+.form-content a:hover {
+	text-decoration: underline;
+}
+
+.line {
+	position: relative;
+	height: 1px;
+	width: 100%;
+	margin: 36px 0;
+	background-color: #d4d4d4;
+}
+
+.line::before {
+	content: 'Or';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #FFF;
+	color: #8b8b8b;
+	padding: 0 15px;
+}
+
+.error {
+	color: red;
+}
+</style>
+
+
+
+
+
+<!-- Boxicons CSS -->
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+	rel='stylesheet'>
+
+</head>
+<body>
+	<form id="createAccountForm" action="Create_Account" method="post">
+		<section class="container forms">
+			<div class="form login">
+				<div class="form-content">
+					<header>Reset Password</header>
+
+					<div class="field input-field">
+						<input type="text" name="username" id="username"
+							placeholder="Full Name" class="input"> <span
+							id="usernameError" class="error"></span>
+					</div>
+					<div class="field input-field">
+						<input type="text" name="email" id="email" placeholder="Email"
+							class="input"> <span id="emailError" class="error"></span>
+					</div>
+					<div class="field input-field">
+						<input type="password" name="password" id="password"
+							placeholder="New Password" class="password"> <span
+							id="passwordError" class="error"></span>
+					</div>
+
+					<div class="field button-field">
+						<button type="submit" id="submitButton">Change Password</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</form>
+
+	<!-- JavaScript -->
+	<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Form element
+            const form = document.getElementById('createAccountForm');
+
+            // Input fields
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            // Error spans
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+
+            // Submit button
+            const submitButton = document.getElementById('submitButton');
+
+            // Function to validate email
+            function isValidEmail(email) {
+                // Your email validation logic here
+                return /\S+@\S+\.\S+/.test(email);
+            }
+
+            // Event listener for form submission
+            form.addEventListener('submit', function (event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Reset error messages
+                usernameError.textContent = '';
+                emailError.textContent = '';
+                passwordError.textContent = '';
+
+                // Validate username
+                if (!usernameInput.value.trim()) {
+                    usernameError.textContent = 'Please enter your full name';
+                    return;
+                }
+
+                // Validate email
+                if (!emailInput.value.trim()) {
+                    emailError.textContent = 'Please enter your email';
+                    emailError.style.color = 'red'; // Set error message color to red
+                    return;
+                } else if (!isValidEmail(emailInput.value.trim())) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.color = 'red'; // Set error message color to red
+                    return;
+                }
+
+                // Validate password
+ 
+// Validate password
+if (!passwordInput.value.trim()) {
+    passwordError.textContent = 'Please enter a new password';
+    return;
+} else if (passwordInput.value.trim().length < 8) {
+    passwordError.textContent = 'Password must be at least 8 characters long';
+    return;
+} else if (!/\d/.test(passwordInput.value) || !/[a-zA-Z]/.test(passwordInput.value) || !/[^a-zA-Z0-9]/.test(passwordInput.value)) {
+    passwordError.textContent = 'Password must contain at least one letter, one number, and one symbol';
+    return;
+}
+
+                // Submit the form if all validations pass
+                form.submit();
+            });
+        });
+    </script>
+</body>
+</html>

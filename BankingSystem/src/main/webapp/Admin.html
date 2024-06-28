@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banking Operations</title>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+	/* Add margin to separate it from the loaded content */
+}
+
+.box {
+	width: calc(25% - 20px);
+	margin: 10px;
+	padding: 20px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	background: linear-gradient(to bottom right, #ff6b6b, #556270);
+	/* Red-Orange Gradient */
+	color: #fff; /* Text color */
+	cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.box:nth-child(2) {
+	background: linear-gradient(to bottom right, #2193b0, #6dd5ed);
+	/* Blue Gradient */
+}
+
+.box:nth-child(3) {
+	background: linear-gradient(to bottom right, #ff4b1f, #ff9068);
+	/* Orange Gradient */
+}
+
+.box:nth-child(4) {
+	background: linear-gradient(to bottom right, #56ab2f, #a8e063);
+	/* Green Gradient */
+}
+
+.icon {
+	font-size: 48px;
+	margin-bottom: 10px; /* Adjust icon spacing */
+}
+
+.text {
+	font-size: 18px; /* Adjust text size */
+}
+
+#loadedContent {
+	display: none;
+	position: relative;
+	margin-top: 20px;
+	width: 100%; /* Full width */
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	padding: 20px;
+}
+</style>
+</head>
+<body>
+	<a href="index.html" style="margin-top: 20px; margin-left: 1050px">Log
+		Out</a>
+	<h1 style="display: block; color: blue; font-style: italic;">ADMIN
+		DASHBOARD</h1>
+
+	<div class="container">
+		<div class="box" onclick="loadContent('Registration.html')">
+			<div class="icon">🏦</div>
+			<div class="text">Registration</div>
+			<p>Register new accounts.</p>
+		</div>
+		<div class="box" onclick="loadContent('Modify.html')">
+			<div class="icon">💳</div>
+			<div class="text">Modify</div>
+			<p>Modify existing accounts.</p>
+		</div>
+		<div class="box" onclick="loadContent('Delete.html')">
+			<div class="icon">💰</div>
+			<div class="text">Delete</div>
+			<p>Delete accounts.</p>
+		</div>
+		<div class="box" onclick="loadContent('Display.html')">
+			<div class="icon">📈</div>
+			<div class="text">Display</div>
+			<p>Display account information.</p>
+		</div>
+	</div>
+
+	<div id="loadedContent"></div>
+
+	<script>
+        // Function to load content dynamically
+        function loadContent(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var loadedContent = document.getElementById('loadedContent');
+                    loadedContent.style.display = 'block'; // Show the loaded content
+                    loadedContent.innerHTML = xhr.responseText;
+
+                    // Call the validation function based on the loaded content
+                    if (url === 'Modify.html') {
+                        validateModifyForm();
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Function to validate modify form data
+        function validateModifyForm() {
+            var modifyForm = document.getElementById("modifyForm");
+
+            modifyForm.addEventListener("submit", function(event) {
+                var fullName = document.getElementById("fullName").value;
+                var address = document.getElementById("address").value;
+                var mobileNo = document.getElementById("mobileNo").value;
+                var email = document.getElementById("email").value;
+                var accountType = document.getElementById("accountType").value;
+                var balance = document.getElementById("balance").value;
+                var dob = document.getElementById("dob").value;
+
+                var error = "";
+
+                if (!fullName.trim()) {
+                    error += "Full Name is required.\n";
+                }
+                if (!address.trim()) {
+                    error += "Address is required.\n";
+                }
+                if (!mobileNo.trim() || mobileNo.length !== 10 || isNaN(mobileNo)) {
+                    error += "Mobile Number must be 10 digits.\n";
+                }
+                if (!email.trim() || !validateEmail(email)) {
+                    error += "Valid Email is required.\n";
+                }
+                if (!accountType.trim()) {
+                    error += "Account Type is required.\n";
+                }
+                if (balance.trim() === "" || balance < 1000) {
+                    error += "Balance should be at least 1000.\n";
+                }
+                if (!dob.trim()) {
+                    error += "Date of Birth is required.\n";
+                }
+
+                if (error !== "") {
+                    alert(error);
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        }
+
+        // Function to validate email format
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+        
+        function validateForm() {
+            var fullName = document.getElementById("fullName").value;
+            var address = document.getElementById("address").value;
+            var mobileNo = document.getElementById("mobileNo").value;
+            var email = document.getElementById("email").value;
+            var accountType = document.getElementById("accountType").value;
+            var balance = document.getElementById("balance").value;
+            var dob = document.getElementById("dob").value;
+            var idProof = document.getElementById("idProof").value;
+            var idProofNumber = document.getElementsByName("id_proff_number")[0].value;
+
+            var error = "";
+
+            if (!fullName.trim()) {
+                error += "Full Name is required.\n";
+            }
+            if (!address.trim()) {
+                error += "Address is required.\n";
+            }
+            if (!mobileNo.trim() || mobileNo.length !== 10 || isNaN(mobileNo)) {
+                error += "Mobile Number must be 10 digits.\n";
+            }
+            if (!email.trim() || !validateEmail(email)) {
+                error += "Valid Email is required.\n";
+            }
+            if (!accountType.trim()) {
+                error += "Account Type is required.\n";
+            }
+            if (balance.trim() === "" || balance < 1000) {
+                error += "Balance should be at least 1000.\n";
+            }
+            if (!dob.trim()) {
+                error += "Date of Birth is required.\n";
+            }
+            // Additional validation for ID Proof
+            if (idProof === "Aadhar") {
+                if (idProofNumber.trim().length !== 12 || isNaN(idProofNumber)) {
+                    error += "Aadhar Number must be 12 digits.\n";
+                }
+            } else if (idProof === "PAN") {
+                var panRegex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+                if (!panRegex.test(idProofNumber)) {
+                    error += "Invalid PAN Number format.\n";
+                }
+            }
+
+            if (error !== "") {
+                alert(error);
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>

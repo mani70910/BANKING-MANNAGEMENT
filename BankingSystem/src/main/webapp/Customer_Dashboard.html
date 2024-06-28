@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Dashboard</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- Include Font Awesome for icons -->
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+	margin: 0;
+	padding: 20px;
+}
+
+.atm-card-container {
+	display: flex;
+	justify-content: space-between; /* Adjust as needed */
+	margin-bottom: 20px; /* Add margin-bottom for separation */
+}
+
+.dashboard-container {
+	max-width: 600px;
+	margin: 20px auto;
+	background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	text-align: center;
+	color: #333;
+}
+
+.details-item {
+	margin-bottom: 10px;
+}
+
+.details-item strong {
+	margin-right: 5px;
+}
+
+.icon {
+	margin-right: 5px;
+}
+
+.atm-card {
+	background: rgb(2, 0, 36);
+	background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	width: 300px;
+	margin-right: 20px;
+}
+
+.atm-card h2 {
+	text-align: center;
+	color: #a52a42;
+}
+
+.input-container {
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.input-container label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.input-container input {
+	width: calc(100% - 30px);
+	padding: 10px 30px 10px 10px;
+	border-radius: 5px;
+	border: 1px solid #368bc0;
+}
+
+.input-container input:focus+.fa {
+	color: #007bff;
+}
+
+.fa {
+	position: absolute;
+	right: 10px;
+	top: calc(50% - 0.5em);
+	color: #aaa;
+}
+
+button {
+	width: 100%;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #007bff;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #a52a42;
+}
+
+.transaction-history {
+	margin-top: 20px;
+}
+
+.transaction-history table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.transaction-history th, .transaction-history td {
+	padding: 8px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+.a {
+	text-align: center;
+	margin-left: 600px;
+}
+
+.download-btn {
+	margin-top: 20px;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #007bff;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	text-align: center;
+	text-decoration: none;
+}
+
+.download-btn:hover {
+	background-color: #a52a42;
+}
+</style>
+</head>
+<body>
+	<h1 style="text-align: center; color: blue;">Customer Dashboard</h1>
+	<div class="dashboard-container">
+		<a class="details-item" href="index.html"
+			style="text-decoration: none; margin-left: 510px;">Log Out</a>
+		<h2>Welcome to Your Dashboard!</h2>
+		<div class="details-item">
+			<i class="fas fa-user icon"></i><strong>Full Name:</strong> <span
+				id="fullName"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-user icon"></i><strong>Account No:</strong> <span
+				id="account"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-map-marker-alt icon"></i><strong>Address:</strong> <span
+				id="address"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-phone icon"></i><strong>Mobile Number:</strong> <span
+				id="mobileNo"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-envelope icon"></i><strong>Email:</strong> <span
+				id="email"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-credit-card icon"></i><strong>Account Type:</strong>
+			<span id="accountType"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-address-card icon"></i><strong>ID Proff</strong> <span
+				id="id_proff"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-id-card icon"></i><strong>ID Proff Number:</strong>
+			<span id="id_proff_number"></span>
+		</div>
+		<div class="details-item">
+			<i class="fas fa-calendar-alt icon"></i><strong>Date of
+				Birth:</strong> <span id="dob"></span>
+		</div>
+
+
+		<!-- Deposit and Withdraw sections parallel -->
+		<div class="atm-card-container">
+			<div class="atm-card">
+				<h2>Deposit Amount</h2>
+				<form action="BankingOperations" method="post">
+					<div class="input-container">
+						<label for="account-no"><i class="fas fa-user"></i>
+							Account Number:</label> <input type="text" id="account-no"
+							name="accountNumber" placeholder="Enter your account number"
+							required>
+					</div>
+					<div class="input-container">
+						<label for="MobileNumber"><i class="fas fa-mobile-alt"></i>
+							Mobile Number:</label> <input type="tel" id="MobileNumber"
+							name="mobileNumber" placeholder="Enter Mobile Number" required>
+					</div>
+
+					<div class="input-container">
+						<label for="DepositAmount"><i class="fas fa-money-bill"></i>
+							Deposit Amount:</label> <input type="text" id="DepositAmount"
+							name="amount" placeholder="Enter Amount" required>
+					</div>
+					<button type="submit">Deposit</button>
+				</form>
+			</div>
+
+			<div class="atm-card">
+				<h2>Withdraw Amount</h2>
+				<form action="BankingOperations" method="post">
+					<div class="input-container">
+						<label for="account-no-withdraw"><i class="fas fa-user"></i>
+							Account Number:</label> <input type="text" id="account-no-withdraw"
+							name="accountNumber" placeholder="Enter your account number"
+							required>
+					</div>
+					<div class="input-container">
+						<label for="MobileNumber"><i class="fas fa-mobile-alt"></i>
+							Mobile Number:</label> <input type="tel" id="MobileNumber"
+							name="mobileNumber" placeholder="Enter Mobile Number" required>
+					</div>
+
+					<div class="input-container">
+						<label for="WithdrawAmount"><i class="fas fa-money-bill"></i>
+							Withdraw Amount:</label> <input type="text" id="WithdrawAmount"
+							name="withdrawAmount" placeholder="Enter Amount" required>
+					</div>
+					<button type="submit">Withdraw</button>
+				</form>
+			</div>
+		</div>
+
+
+		<!-- Transaction history section -->
+		<div class="atm-card transaction-history"
+			style="width: 550px; margin-bottom: 4px">
+			<p style="color: red;">Note: Make Sure to refresh page after any
+				sort of trsanction in order to download trsanction history</p>
+			<h2>Transaction History</h2>
+			<table id="transaction-table">
+				<!-- Transaction history will be displayed here -->
+			</table>
+			<a href="TransactionHistoryServlet?download=true"
+				class="download-btn" download>Download Transaction History</a>
+
+		</div>
+
+		<!-- Refresh button -->
+		<button onclick="refreshPage()">Refresh</button>
+		<!--    <button onclick="close" style="margin-top: 10px; background-color: red;">Close Account</button>-->
+		<button onclick="location.href='Close_Account.html'"
+			style="margin-top: 10px;">Close Account</button>
+	</div>
+
+
+	<script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Function to refresh the page
+        
+
+        // Function to fetch transaction history data
+     function fetchTransactionHistory() {
+    fetch('TransactionHistoryServlet')
+        .then(response => response.text())
+        .then(data => {
+            // Update the table with the received transaction history
+            document.getElementById('transaction-table').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching transaction history:', error));
+}
+  // Call fetchTransactionHistory function initially to load transaction history
+     fetchTransactionHistory();
+     function refreshPage() {
+    	    location.reload();
+    	}
+
+  // Retrieve customer details from URL parameters
+     var fullName = getUrlParameter('fullName');
+     var account = getUrlParameter('account');
+     var address = getUrlParameter('address');
+     var mobileNo = getUrlParameter('mobileNo');
+     var email = getUrlParameter('email');
+     var accountType = getUrlParameter('accountType');
+     var balance = getUrlParameter('balance');
+     var id_proff = getUrlParameter('id_proff');  // Check this variable name
+     var id_proff_number = getUrlParameter('id_proff_number');
+  // Check this variable name
+     var dob = getUrlParameter('dob');
+
+     // Update HTML content with customer details
+     document.getElementById('fullName').textContent = fullName;
+     document.getElementById('account').textContent = account;
+     document.getElementById('address').textContent = address;
+     document.getElementById('mobileNo').textContent = mobileNo;
+     document.getElementById('email').textContent = email;
+     document.getElementById('accountType').textContent = accountType;
+     document.getElementById('id_proff').textContent = id_proff;  // Check this ID for correct reference in HTML
+     document.getElementById('id_proff_number').textContent = id_proff_number;  // Check this ID for correct reference in HTML
+     document.getElementById('dob').textContent = dob;
+     document.getElementById('balance').textContent = balance;
+
+    </script>
+</body>
+</html>
